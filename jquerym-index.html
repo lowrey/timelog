@@ -1,0 +1,138 @@
+<!DOCTYPE html> 
+<html class="no-js" lang="en-US">
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <title>Time Log</title>
+
+    <link href="//code.jquery.com/mobile/1.3.1/jquery.mobile-1.3.1.min.css" rel="stylesheet">
+    <style type="text/css">
+    table {
+        color: black;
+        background: #fff;
+        border: 1px solid #b4b4b4;
+        font: bold 17px helvetica;
+        padding: 0;
+            margin-top:10px;
+        /*max-width: 800px;*/
+        width: 100%,
+           -webkit-border-radius: 8px;
+    }
+
+    table tr td {
+        color: #666;
+           border-bottom: 1px solid #b4b4b4;
+           border-right: 1px solid #b4b4b4;
+        padding: 10px 10px 10px 10px;
+           background-image: -webkit-linear-gradient(top, #fdfdfd, #eee);
+    }
+
+    table tr td:last-child {
+        border-right: none;
+    }
+
+    table tr:last-child td {
+        border-bottom: none;
+    }
+    </style>
+
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    <script type="text/javascript" src="//code.jquery.com/mobile/1.3.1/jquery.mobile-1.3.1.min.js"></script>
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/underscore.js/1.4.4/underscore-min.js"></script>
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/backbone.js/1.0.0/backbone-min.js"></script>
+</head>
+
+<body>
+<div data-role="page" class="type-interior">
+
+  <div data-role="header" data-theme="a" class="ui-header ui-bar-a" role="banner">
+      <h1>Time Log</h1>
+      <a href="#list" data-icon="home" data-iconpos="notext" rel="external">Home</a>
+      <a href="#add" data-icon="add" data-iconpos="notext" rel="external">Add</a>
+  </div><!-- /header -->
+
+	<div data-role="content">
+		<div class="content-primary">
+            <div id="content" /> 
+                  <!-- add time view  --> 
+                  <script type="text/template" id="addTimeTemplate"> 
+                        <h2>Add New Time </h2> 
+                              <form id="addTimeForm" class="ui-body ui-body-a ui-corner-all"> 
+                                <div>
+                                  <label for="inputNotes" class="ui-input-text">Notes</label>
+                                  <div>
+                                    <input 
+                                        type="text" 
+                                        value=""
+                                        name="Notes" 
+                                        id="inputNotes"
+                                        class="ui-input-text ui-body-a ui-corner-all"
+                                        placeholder="Notes"> 
+                                         <span class='false notes_error'></span><br />
+                                  </div> 
+                                </div> 
+
+                                <div class="ui-btn ui-shadow ui-btn-corner-all ui-submit ui-btn-up-b" data-theme="b">
+                                    <span class="ui-btn-inner ui-btn-corner-all" data-theme="b">
+                                        <span class="ui-btn-text">Submit</span>
+                                    </span>
+                                    <button 
+                                        data-theme="b"
+                                        class="ui-btn-hidden"
+                                        type="submit" 
+                                        value='Add' 
+                                        class="btn btn-primary" />
+                                </div>
+                                <span class="success"></span> 
+                          </form> 
+                  </script> 
+              <!-- list view --> 
+              <script type="text/template" id="listTimeTemplate">
+                      <table data-role="table" id="timeTable" class="ui-responsive table-stroke">
+                              <thead>
+                                <tr>
+                                  <th>
+                                      <b class="ui-table-cell-label">Time</b>
+                                  </th>
+                                  <th>
+                                      <b class="ui-table-cell-label">Notes</b>
+                                  </th>
+                                  <th>
+                                      <b class="ui-table-cell-label">Action</b>
+                                  </th>
+                                </tr>
+                              </thead>
+                              <tbody>
+
+                              <% if( $.isEmptyObject(times) ){ %>
+                                  <tr><td colspan='3'>No record found</td></tr>
+
+                              <% } else { 
+                                 $.each(times,function(){  
+                               %>
+
+                                <tr data-id=<%= this.id %>>
+                                  <td>
+                                  <%= new Date(this.time*1000) %></td>
+                                  <td>
+                                  <%= this.notes %></td>
+                                  <td align="center">
+                                    <a class="delete ui-link" >Delete</a>
+                                  </td>
+
+                                </tr>   
+                                <% })
+                              } %> 
+                          </tbody>
+                        </table>
+                  </script>
+
+                <br>
+            </div>
+        </div>
+    </div>
+ </div><!-- /page -->
+    <script type="text/javascript" src="./assets/js/app.js"></script>
+</body>
+</html>
